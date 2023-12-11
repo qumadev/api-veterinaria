@@ -27,4 +27,53 @@ public class Mascota {
     @OneToMany(mappedBy = "mascota")
     private Collection<Historial> itemsHistorial = new ArrayList<>();
 
+    public Long getId_mascota() {
+        return id_mascota;
+    }
+
+    public void setId_mascota(Long id_mascota) {
+        this.id_mascota = id_mascota;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getEspecie() {
+        return especie;
+    }
+
+    public void setEspecie(String especie) {
+        this.especie = especie;
+    }
+
+    public Date getFecha_nacimiento() {
+        return fecha_nacimiento;
+    }
+
+    public void setFecha_nacimiento(Date fecha_nacimiento) {
+        this.fecha_nacimiento = fecha_nacimiento;
+    }
+
+    public Collection<Historial> getItemsHistorial() {
+        return itemsHistorial;
+    }
+
+    public void setItemsHistorial(Collection<Historial> itemsHistorial) {
+        this.itemsHistorial = itemsHistorial;
+    }
+
+    public Mascota() {
+    }
+
+    public Mascota(Long id_mascota, String nombre, String especie, Date fecha_nacimiento) {
+        this.id_mascota = id_mascota;
+        this.nombre = nombre;
+        this.especie = especie;
+        this.fecha_nacimiento = fecha_nacimiento;
+    }
 }
