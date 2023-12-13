@@ -21,6 +21,9 @@ public class Vacuna {
     private Date fecha_vencimiento;
     @Column
     private float costo;
+    @ManyToOne
+    @JoinColumn(name = "id_veterinario")
+    private Veterinarios veterinario;
     @OneToMany(mappedBy = "vacuna")
     private Collection<Historial> itemsHistorial = new ArrayList<>();
 

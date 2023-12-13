@@ -23,6 +23,10 @@ public class Mascota {
 
     @Temporal(TemporalType.DATE)
     private Date fecha_nacimiento;
+    //nueva linea agregada//
+    @ManyToOne
+    @JoinColumn(name = "id_dueño")
+    private Dueño dueño;
 
     @OneToMany(mappedBy = "mascota")
     private Collection<Historial> itemsHistorial = new ArrayList<>();
