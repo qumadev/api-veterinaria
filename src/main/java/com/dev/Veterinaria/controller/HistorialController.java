@@ -7,6 +7,7 @@ import com.dev.Veterinaria.service.VacunaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -17,12 +18,14 @@ public class HistorialController {
     private HistorialService service;
 
     @GetMapping("/listar")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<?> listar()
     {
         Collection<Historial> items = service.findAll();
         return new ResponseEntity<>(items, HttpStatus.OK);
     }
     @GetMapping("/buscar/{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<?> buscar(@PathVariable long id){
         Historial historial = service.findById(id);
         if(historial!=null){
@@ -31,6 +34,7 @@ public class HistorialController {
         return  new ResponseEntity<>("Historial no registrado",HttpStatus.NOT_FOUND);
     }
     @PostMapping("/agregar")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<?> agregar(@RequestBody Historial historial){
         service.insert(historial);
         return  new ResponseEntity<>("Historial registrado",HttpStatus.CREATED);
