@@ -38,4 +38,33 @@ public class MascotaController {
         service.insert(mascota);
         return  new ResponseEntity<>("Mascota registrada",HttpStatus.CREATED);
     }
+
+    @PutMapping("/editar/{id}")
+    public ResponseEntity<?> editar(@PathVariable Long id,
+                                    @RequestBody Mascota updated) {
+        Mascota mascota = service.findById(id);
+
+        if (mascota != null) {
+            mascota.setNombre(updated.getNombre());
+            mascota.setEspecie(updated.getEspecie());
+            mascota.setFecha_nacimiento(updated.getFecha_nacimiento());
+
+            service.update(mascota);
+            return new ResponseEntity<>("Se modificó la mascota con el id: " +mascota.getId_mascota(), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @DeleteMapping("/borrar/{id}")
+    public ResponseEntity<?> borrarDueño(@PathVariable Long id) {
+        Mascota mascota = service.findById(id);
+
+        if (mascota != null) {
+            service.delete(id);
+            return new ResponseEntity<>("Se elimino el id: " + mascota.getId_mascota()+ " con el nombre:" +mascota.getNombre(), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 }

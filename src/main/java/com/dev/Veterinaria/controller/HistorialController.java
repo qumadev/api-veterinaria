@@ -39,4 +39,32 @@ public class HistorialController {
         service.insert(historial);
         return  new ResponseEntity<>("Historial registrado",HttpStatus.CREATED);
     }
+    @PutMapping("/editar/{id}")
+    public ResponseEntity<?> editar(@PathVariable Long id,
+                                    @RequestBody Historial updated) {
+        Historial historial = service.findById(id);
+
+        if (historial != null) {
+            historial.setFecha_atencion(updated.getFecha_atencion());
+            historial.setMascota(updated.getMascota());
+            historial.setVacuna(updated.getVacuna());
+
+            service.update(historial);
+            return new ResponseEntity<>("Se modificó el historial con el id: " +historial.getId_historial(), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @DeleteMapping("/borrar/{id}")
+    public ResponseEntity<?> borrarDueño(@PathVariable Long id) {
+        Historial historial = service.findById(id);
+
+        if (historial != null) {
+            service.delete(id);
+            return new ResponseEntity<>("Se elimino el historial con id: " + historial.getId_historial(), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 }

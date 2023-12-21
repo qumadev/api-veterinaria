@@ -38,4 +38,33 @@ public class VacunaController {
         service.insert(vacuna);
         return  new ResponseEntity<>("Vacuna registrada",HttpStatus.CREATED);
     }
+
+    @PutMapping("/editar/{id}")
+    public ResponseEntity<?> editar(@PathVariable Long id,
+                                    @RequestBody Vacuna updated) {
+        Vacuna vacuna = service.findById(id);
+
+        if (vacuna != null) {
+            vacuna.setNombre(updated.getNombre());
+            vacuna.setFecha_vencimiento(updated.getFecha_vencimiento());
+            vacuna.setCosto(updated.getCosto());
+
+            service.update(vacuna);
+            return new ResponseEntity<>("Se modificó la vacuna con el id: " +vacuna.getId_vacuna(), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @DeleteMapping("/borrar/{id}")
+    public ResponseEntity<?> borrarDueño(@PathVariable Long id) {
+        Vacuna vacuna = service.findById(id);
+
+        if (vacuna != null) {
+            service.delete(id);
+            return new ResponseEntity<>("Se elimino el id: " + vacuna.getId_vacuna()+ " con el nombre:" +vacuna.getNombre(), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 }
