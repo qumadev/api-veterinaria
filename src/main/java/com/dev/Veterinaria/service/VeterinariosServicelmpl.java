@@ -27,15 +27,17 @@ public class VeterinariosServicelmpl implements VeterinariosService{
 
     @Override
     @Transactional
-    public void delete(long id_veterinario ) {
+    public void delete(Long id_veterinario ) {
         repository.deleteById( id_veterinario);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Veterinarios findById(long id_veterinario) {
+    public Veterinarios findById(Long id_veterinario) {
         return repository.findById( id_veterinario).orElse(null);
     }
+
+
 
     @Override
     @Transactional(readOnly = true)

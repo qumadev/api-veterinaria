@@ -41,4 +41,35 @@ public class DueñoController {
         service.insert(dueño);
         return  new ResponseEntity<>("Dueño registrada",HttpStatus.CREATED);
     }
+
+    @PutMapping("/editar/{id_dueño}")
+    public ResponseEntity<?> editar(@PathVariable Long id_dueño,
+                                    @RequestBody Dueño newDueño) {
+        Dueño bdDueño = service.findById(id_dueño);
+
+        if (bdDueño != null) {
+            bdDueño.setNombre(newDueño.getNombre());
+            bdDueño.setTelefono(newDueño.getTelefono());
+
+
+            service.update(bdDueño);
+            return new ResponseEntity<>("Se modificó  el dueño con el id: " + bdDueño.getId_dueño(), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @DeleteMapping("/borrar/{id_dueño}")
+    public ResponseEntity<?> borrarDueño(@PathVariable Long id_dueño) {
+        Dueño bdDueño = service.findById(id_dueño);
+
+        if (bdDueño != null) {
+            service.delete(id_dueño);
+            return new ResponseEntity<>("Se elimino el id: " + bdDueño.getId_dueño()+ " con el nombre:" +bdDueño.getNombre(), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+
 }

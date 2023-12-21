@@ -40,4 +40,35 @@ public class VeterinariosController {
         service.insert(veterinarios);
         return  new ResponseEntity<>("Veterinario registrada",HttpStatus.CREATED);
     }
+    @PutMapping("/editar/{id_veterinario}")
+    public ResponseEntity<?> editar(@PathVariable Long id_veterinario,
+                                       @RequestBody Veterinarios newVeterinario) {
+        Veterinarios bdveterinario =service.findById(id_veterinario);
+
+        if (bdveterinario != null) {
+
+            bdveterinario.setNombre(newVeterinario.getNombre());
+            bdveterinario.setEspecialidad(newVeterinario.getEspecialidad());
+
+            service.update(bdveterinario);
+            return new ResponseEntity<>("Se modifico veterinario con el Id: "+ bdveterinario.getId_veterinario(), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+
+    @DeleteMapping("/borrar/{id_veterinario}")
+    public ResponseEntity<?> borrar(@PathVariable Long id_veterinario) {
+        Veterinarios bdveterinario = service.findById(id_veterinario);
+
+        if (bdveterinario!= null) {
+            service.delete(id_veterinario);
+            return new ResponseEntity<>("Se elimino Veterinario con el Id: "+bdveterinario.getId_veterinario() +" con el nombre " +bdveterinario.getNombre(),HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+
 }
