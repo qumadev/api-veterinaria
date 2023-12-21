@@ -40,6 +40,7 @@ public class HistorialController {
         return  new ResponseEntity<>("Historial registrado",HttpStatus.CREATED);
     }
     @PutMapping("/editar/{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<?> editar(@PathVariable Long id,
                                     @RequestBody Historial updated) {
         Historial historial = service.findById(id);
@@ -57,6 +58,7 @@ public class HistorialController {
     }
 
     @DeleteMapping("/borrar/{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<?> borrarDueño(@PathVariable Long id) {
         Historial historial = service.findById(id);
 

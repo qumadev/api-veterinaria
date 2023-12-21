@@ -43,6 +43,7 @@ public class DueñoController {
     }
 
     @PutMapping("/editar/{id_dueño}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<?> editar(@PathVariable Long id_dueño,
                                     @RequestBody Dueño newDueño) {
         Dueño bdDueño = service.findById(id_dueño);
@@ -60,6 +61,7 @@ public class DueñoController {
     }
 
     @DeleteMapping("/borrar/{id_dueño}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<?> borrarDueño(@PathVariable Long id_dueño) {
         Dueño bdDueño = service.findById(id_dueño);
 

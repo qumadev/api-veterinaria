@@ -40,6 +40,7 @@ public class VacunaController {
     }
 
     @PutMapping("/editar/{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<?> editar(@PathVariable Long id,
                                     @RequestBody Vacuna updated) {
         Vacuna vacuna = service.findById(id);
@@ -57,6 +58,7 @@ public class VacunaController {
     }
 
     @DeleteMapping("/borrar/{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<?> borrarDueño(@PathVariable Long id) {
         Vacuna vacuna = service.findById(id);
 

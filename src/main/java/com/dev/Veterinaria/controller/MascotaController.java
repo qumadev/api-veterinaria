@@ -40,6 +40,7 @@ public class MascotaController {
     }
 
     @PutMapping("/editar/{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<?> editar(@PathVariable Long id,
                                     @RequestBody Mascota updated) {
         Mascota mascota = service.findById(id);
@@ -57,6 +58,7 @@ public class MascotaController {
     }
 
     @DeleteMapping("/borrar/{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<?> borrarDueño(@PathVariable Long id) {
         Mascota mascota = service.findById(id);
 

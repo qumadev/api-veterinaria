@@ -41,6 +41,7 @@ public class VeterinariosController {
         return  new ResponseEntity<>("Veterinario registrada",HttpStatus.CREATED);
     }
     @PutMapping("/editar/{id_veterinario}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<?> editar(@PathVariable Long id_veterinario,
                                        @RequestBody Veterinarios newVeterinario) {
         Veterinarios bdveterinario =service.findById(id_veterinario);
@@ -59,6 +60,7 @@ public class VeterinariosController {
 
 
     @DeleteMapping("/borrar/{id_veterinario}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<?> borrar(@PathVariable Long id_veterinario) {
         Veterinarios bdveterinario = service.findById(id_veterinario);
 
