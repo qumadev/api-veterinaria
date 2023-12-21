@@ -1,5 +1,6 @@
 package com.dev.Veterinaria.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class Mascota {
     private Dueño dueño;
 
     @OneToMany(mappedBy = "mascota")
+    @JsonIgnore
     private Collection<Historial> itemsHistorial = new ArrayList<>();
 
     public Long getId_mascota() {

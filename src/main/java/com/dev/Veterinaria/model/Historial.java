@@ -16,7 +16,6 @@ public class Historial {
     @Temporal(TemporalType.DATE)
     private Date fecha_atencion;
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "id_mascota", nullable=false,
             foreignKey=@ForeignKey(foreignKeyDefinition =
                     "foreign key(id_mascota) references mascota(id_mascota)"))
